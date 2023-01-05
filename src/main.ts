@@ -1,23 +1,14 @@
-// import { NestFactory } from '@nestjs/core';
-// import { AppModule } from './app.module';
-
-// async function bootstrap() {
-//   const app = await NestFactory.create(AppModule);
-//   await app.listen(3000);
-// }
-// bootstrap();
-
-import { HttpAdapterHost, NestFactory } from '@nestjs/core';
+import { Logger } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
+  const logger = new Logger();
   const app = await NestFactory.create(AppModule);
+  const port = process.env.PORT;
 
-  app.useGlobalPipes(new ValidationPipe());
-  // const { httpAdapter } = app.get(HttpAdapterHost);
-  // app.useGlobalFilters(new ExceptionLoggerFilter(httpAdapter));
+  await app.listen(port);
 
-  await app.listen(3000);
+  logger.log(`Application listening on port ${port}`);
 }
 bootstrap();
