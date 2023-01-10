@@ -36,7 +36,7 @@ export default class PostService {
     return await this.postRepository.findOne({ where: { title } });
   }
 
-  public async createPost(postDto: CreatePostDto) {
+  public async createPost(postDto: CreatePostDto): Promise<Post> {
     const post = await this.getByTitle(postDto.title);
     if (post) {
       throw new HttpException('Post with this title already exist', HttpStatus.CONFLICT);
@@ -56,19 +56,32 @@ export default class PostService {
     return posts;
   }
 
-  async updatePost(postDto: { post_id: string }, data: CreatePostDto): Promise<any> {
-    try {
-      console.log(postDto);
-      await this.postRepository.update(postDto.post_id, data); 
 
-      return {
-        success: true,
-        message: 'Successfully updated post',
-      };
-    } catch (err) {
-      console.log(err);
+  async updatePost(
+    id: string,
+    postDataUpdate: UpdatePostDto
+  ): Promise<Post> {
+    const post = await this.postRepository.findOneBy({
+      id: Number(id)
+    })
+
+    if (!post) {
+      throw new HttpException(`Post with this id = ${id} does not exist`, HttpStatus.NOT_FOUND);
     }
-}
+
+    const findPostByTitle = await this.getByTitle(postDataUpdate.title);
+    if (findPostByTitle && postDataUpdate.title != post.title) {
+      throw new HttpException('Post with this title already exist', HttpStatus.CONFLICT);
+    }
+
+   const newPost = {
+      ...post,
+      ...postDataUpdate
+    }
+
+    const postUpdate = await this.postRepository.save(newPost);
+    return postUpdate
+  }
 
   public async deletePost(id: number) {
     try {

@@ -34,10 +34,10 @@ export default class PostsController {
     return this.postService.createPost(post);
   }
  
-  // @Put(':id')
-  // async updatePost(@Param('id') id: string, @Body() post: CreatePostDto) {
-  //   return this.postService.updatePost(Number(id), post);
-  // }
+  @Put(':id')
+  async updatePost(@Param('id') id: string, @Body() postDataUpdate: UpdatePostDto) {
+    return this.postService.updatePost(id, postDataUpdate);
+  }
  
   @Delete(':id')
   async deletePost(@Param('id') id: string) {

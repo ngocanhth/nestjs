@@ -1,11 +1,16 @@
-import { IsNotEmpty, IsUrl } from 'class-validator';
+import { IsNotEmpty, IsUrl, Validate } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type, Type as ValidateType } from 'class-transformer';
 import { ArrayMinSize, IsArray, IsEmail, IsNumber, IsOptional, IsString, Min, MinLength, ValidateNested } from 'class-validator';
+import { Unique } from 'typeorm';
 export class CreatePostDto {
     @ApiProperty({description: 'TITLE', required: true})
     @IsString()
     @MinLength(4)
+    @Validate(
+      Unique
+    )
+    
     public title!: string;
   
     @ApiProperty({description: 'EMAIL', required: true})
