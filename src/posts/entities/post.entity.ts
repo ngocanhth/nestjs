@@ -10,6 +10,7 @@ class PostEntity {
  
   @Column({ type: 'varchar', length: 255 })
   @IsNotEmpty()
+  
   public title!: string;
  
   @Column({ type: 'varchar', length: 255})

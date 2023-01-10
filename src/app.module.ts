@@ -5,6 +5,9 @@ import { ConfigModule } from '@nestjs/config';
 import * as Joi from '@hapi/joi';
 import { DatabaseModule } from './database/database.module';
 import { PostsModule } from './posts/posts.module';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
+import { TodoModule } from './todo/todo.module';
 
 @Module({
   imports: [
@@ -19,7 +22,10 @@ import { PostsModule } from './posts/posts.module';
       }),
     }),
     DatabaseModule,
-    PostsModule,
+    AuthModule, 
+    TodoModule,
+    UserModule,
+    PostsModule
   ],
   controllers: [AppController],
   providers: [AppService],
