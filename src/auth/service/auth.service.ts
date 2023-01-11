@@ -10,8 +10,8 @@ import { UserRepository } from "../repository/user.repository";
 export class AuthService {
     constructor(
         @InjectRepository(UserRepository)
-        private userRepository: UserRepository,
-        private jwtService: JwtService
+        protected  userRepository: UserRepository,
+        protected  jwtService: JwtService
     ) {}
 
     async signUp(signupCredentialsDto: SignupCredentialsDto): Promise<{ message: string }> {

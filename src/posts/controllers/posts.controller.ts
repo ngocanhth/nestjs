@@ -4,7 +4,7 @@ import { CreatePostDto } from '../dto/createPost.dto';
 import { UpdatePostDto } from '../dto/updatePost.dto';
 import PostService from '../services/posts.service';
  
-@Controller('/api/v1/posts')
+@Controller('/posts')
 @UseInterceptors(new LoggerInterceptor())
 
 @UsePipes(

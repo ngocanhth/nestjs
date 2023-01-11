@@ -7,7 +7,7 @@ async function bootstrap() {
   const logger = new Logger();
   const app = await NestFactory.create(AppModule);
   const port = +process.env.APP_PORT || 5000;
-  app.setGlobalPrefix('api')
+  app.setGlobalPrefix('api/v1')
   console.log('Port running on: ', port)
 
 
@@ -22,7 +22,7 @@ async function bootstrap() {
   .build()
   
   const document = SwaggerModule.createDocument(app, options)
-  SwaggerModule.setup('api', app, document)
+  SwaggerModule.setup('api/v1', app, document)
 
   await app.listen(port);
 }

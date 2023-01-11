@@ -6,10 +6,10 @@ import { JwtPayload } from "./interface/jwt-payload.interface"
 import { AuthService } from "./service/auth.service"
 
 @ApiTags('Auth')
-@Controller('auth')
+@Controller('/auth')
 export class AuthController {
     constructor(
-        private authService: AuthService
+        private readonly authService: AuthService
     ) {}
     
     @Post('/signup')
