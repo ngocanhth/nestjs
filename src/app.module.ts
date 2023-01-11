@@ -8,6 +8,8 @@ import { PostsModule } from './posts/posts.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { TodoModule } from './todo/todo.module';
+import { AuthenticationModule } from './authentication/authentication.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -22,9 +24,9 @@ import { TodoModule } from './todo/todo.module';
       }),
     }),
     DatabaseModule,
-    AuthModule, 
+    AuthenticationModule,
+    UsersModule,
     TodoModule,
-    UserModule,
     PostsModule
   ],
   controllers: [AppController],

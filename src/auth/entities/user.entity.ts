@@ -8,7 +8,7 @@ import { UserInfo } from "../../user/entities/user-info.entity";
 
 export class User extends BaseEntity {
     @PrimaryGeneratedColumn()
-    id: number
+    id!: number
 
     @Column({ type: "varchar" })
     username: string
@@ -31,3 +31,22 @@ export class User extends BaseEntity {
         return hash === this.password
     }
 }
+
+// @Entity()
+// export class User extends BaseEntity {
+//   @PrimaryGeneratedColumn()
+//   public id!: number;
+
+//   @Column({ type: 'varchar' })
+//   public email!: string;
+
+//   @Exclude()
+//   @Column({ type: 'varchar' })
+//   public password!: string;
+
+//   @Column({ type: 'varchar', nullable: true })
+//   public name: string | null;
+
+//   @Column({ type: 'timestamp', nullable: true, default: null })
+//   public lastLoginAt: Date | null;
+// }
