@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseInterceptors, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, UseInterceptors, UsePipes, ValidationPipe } from '@nestjs/common';
 import { LoggerInterceptor } from 'src/logger.interceptor';
 import { CreatePostDto } from '../dto/createPost.dto';
 import { UpdatePostDto } from '../dto/updatePost.dto';
@@ -37,7 +37,10 @@ export default class PostsController {
     return this.postService.createPost(post);
   }
  
-  @Put(':id')
+  // @Put(':id')
+  @Patch(':id')
+  @UsePipes(new ValidationPipe({ skipMissingProperties: true}))
+
   async updatePost(@Param('id') id: string, @Body() postDataUpdate: UpdatePostDto) {
     return this.postService.updatePost(id, postDataUpdate);
   }
