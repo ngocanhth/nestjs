@@ -31,6 +31,9 @@ export default class PostsController {
  
   @Post()
   async createPost(@Body() post: CreatePostDto) {
+    
+    console.log('post: ', post);
+
     return this.postService.createPost(post);
   }
  
