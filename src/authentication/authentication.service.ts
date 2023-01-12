@@ -17,7 +17,7 @@ export class AuthenticationService {
 
   public async register(registrationData: RegisterDto) {
     
-    console.log(`register o service ${registrationData}`);
+    console.log('register o service', registrationData);
     
     const hashedPassword = await bcrypt.hash(registrationData.password, 10);
     try {

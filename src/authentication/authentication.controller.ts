@@ -14,8 +14,7 @@ export class AuthenticationController {
 
   @Post('register')
   async register(@Body() registrationData: RegisterDto) {
-  //  console.log('register');
-  console.log(`register o Controller ${registrationData}`);
+    console.log('register', registrationData);
     return this.authenticationService.register(registrationData);
   }
 
