@@ -1,8 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, UseInterceptors, UsePipes, ValidationPipe } from '@nestjs/common';
-import { LoggerInterceptor } from 'src/logger.interceptor';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Req, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from '@nestjs/common';
+import RequestWithUser from '../../authentication/requestWithUser.interface';
+import JwtAuthenticationGuard from '../../authentication/jwt-authentication.guard';
+import { LoggerInterceptor } from '../../logger.interceptor';
 import { CreatePostDto } from '../dto/createPost.dto';
 import { UpdatePostDto } from '../dto/updatePost.dto';
 import PostService from '../services/posts.service';
+import FindOneParams from '../../utils/findOneParams';
  
 @Controller('/posts')
 @UseInterceptors(new LoggerInterceptor())
@@ -23,30 +26,27 @@ export default class PostsController {
   getAllPosts() {
     return this.postService.getAllPosts();
   }
- 
+
   @Get(':id')
-  getPostById(@Param('id') id: string) {
+  getPostById(@Param() { id }: FindOneParams) {
     return this.postService.getPostById(Number(id));
   }
- 
+
   @Post()
-  async createPost(@Body() post: CreatePostDto) {
-    
+  @UseGuards(JwtAuthenticationGuard)
+  async createPost(@Body() post: CreatePostDto, @Req() req: RequestWithUser) {
     console.log('post: ', post);
-
-    return this.postService.createPost(post);
+    
+    return this.postService.createPost(post, req.user);
   }
- 
-  // @Put(':id')
+
   @Patch(':id')
-  @UsePipes(new ValidationPipe({ skipMissingProperties: true}))
-
-  async updatePost(@Param('id') id: string, @Body() postDataUpdate: UpdatePostDto) {
-    return this.postService.updatePost(id, postDataUpdate);
+  async updatePost(@Param() { id }: FindOneParams, @Body() post: UpdatePostDto) {
+    return this.postService.updatePost(Number(id), post);
   }
- 
+
   @Delete(':id')
-  async deletePost(@Param('id') id: string) {
-    this.postService.deletePost(Number(id));
+  async deletePost(@Param() { id }: FindOneParams) {
+    return this.postService.deletePost(Number(id));
   }
 }

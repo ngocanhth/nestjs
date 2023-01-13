@@ -6,11 +6,13 @@ import PostgresErrorCode from '../database/postgresErrorCode.enum';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import TokenPayload from './tokenPayload.interface';
+import { AddressesService } from '../users/address.service';
 
 @Injectable()
 export class AuthenticationService {
   constructor(
     private readonly usersService: UsersService,
+    private readonly addressesService: AddressesService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService
   ) {}
@@ -63,5 +65,9 @@ export class AuthenticationService {
     if (!isPasswordMatching) {
       throw new HttpException('Wrong credentials provided', HttpStatus.BAD_REQUEST);
     }
+  }
+
+  public async getAllAddresses() {
+    return this.addressesService.getAllAddressesWithUsers();
   }
 }

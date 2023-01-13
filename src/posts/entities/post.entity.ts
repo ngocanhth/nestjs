@@ -7,12 +7,15 @@ class Post {
   @PrimaryGeneratedColumn()
   public id!: number;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 255, unique: true  })
   @IsNotEmpty()
   public title!: string;
 
   @Column()
   public content: string;
+
+  @Column({ type: 'varchar', length: 255})
+  public url!: string;
 
   @Column({ nullable: true })
   public category?: string;

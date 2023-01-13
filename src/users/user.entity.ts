@@ -21,7 +21,7 @@ class User {
 
   @Expose()
   @OneToOne(() => Address, {
-    eager: true,
+    eager: true, // include các bảng ngoại vào trong response
     cascade: true,
     onDelete: "CASCADE",
     nullable: true

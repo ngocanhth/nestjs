@@ -1,7 +1,5 @@
-import { IsNotEmpty, IsUrl, Validate } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { Type, Type as ValidateType } from 'class-transformer';
-import { ArrayMinSize, IsArray, IsEmail, IsNumber, IsOptional, IsString, Min, MinLength, ValidateNested } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsString, IsUrl, MinLength, Validate } from 'class-validator';
 import { Unique } from 'typeorm';
 export class CreatePostDto {
     @ApiProperty({description: 'TITLE', required: true})
@@ -23,6 +21,13 @@ export class CreatePostDto {
     @MinLength(4)
     @IsUrl(undefined, { message: 'Post URL is not valid.' })
     public url!: string;
+
+    @IsString()
+    @IsNotEmpty()
+    content: string;
+
+    @IsOptional()
+    category: string | null;
   
 //    @ApiProperty({description: 'tags', required: false, type:[PostTag]})
 //    @IsOptional()

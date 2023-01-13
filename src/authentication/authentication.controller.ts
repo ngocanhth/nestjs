@@ -6,7 +6,7 @@ import RequestWithUser from './requestWithUser.interface';
 import { LocalAuthenticationGuard } from './localAuthentication.guard';
 import JwtAuthenticationGuard from './jwt-authentication.guard';
 
-@Controller('authentication')
+@Controller('auth')
 // @SerializeOptions({
 //   strategy: 'excludeAll'
 // })
@@ -46,5 +46,15 @@ export class AuthenticationController {
   authenticate(@Req() request: RequestWithUser) {
     const user = request.user;
     return user;
+  }
+
+  @UseGuards(JwtAuthenticationGuard)
+  @Get('addresses')
+  async getAllAddressesForUsers() {
+    
+    console.log('addresses: ', );
+
+    const AllAddress = this.authenticationService.getAllAddresses()
+    return AllAddress;
   }
 }
