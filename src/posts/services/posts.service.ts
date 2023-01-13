@@ -36,7 +36,7 @@ export default class PostService {
     return await this.postRepository.findOne({ where: { title } });
   }
 
-  public async createPost(postDto: CreatePostDto): Promise<Post> {
+  public async createPost(postDto: CreatePostDto) {
     const post = await this.getByTitle(postDto.title);
     if (post) {
       throw new HttpException('Post with this title already exist', HttpStatus.CONFLICT);

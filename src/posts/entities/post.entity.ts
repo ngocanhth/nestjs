@@ -1,23 +1,28 @@
+import User from '../../users/user.entity';
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
-import { Column, Entity, Index, PrimaryGeneratedColumn, Unique } from 'typeorm';
- 
+
 @Entity()
-@Index(['email', 'title'])
-@Unique(['title'])
-class PostEntity {
+class Post {
   @PrimaryGeneratedColumn()
   public id!: number;
- 
+
   @Column({ type: 'varchar', length: 255 })
   @IsNotEmpty()
-  
   public title!: string;
- 
-  @Column({ type: 'varchar', length: 255})
-  public url!: string;
 
-  @Column({ type: 'varchar', length: 255})
-  public email!: string;
+  @Column()
+  public content: string;
+
+  @Column({ nullable: true })
+  public category?: string;
+
+  @ManyToOne(() => User, (author: User) => author.posts)
+  public author: User;
+
+  // @ManyToMany(() => Category, (category: Category) => category.posts)
+  // @JoinTable()
+  // public categories: Category[];
 }
- 
-export default PostEntity;
+
+export default Post;
