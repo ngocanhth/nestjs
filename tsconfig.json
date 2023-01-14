@@ -9,8 +9,22 @@
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
+    "baseUrl": ".",
     "incremental": true,
-    "skipLibCheck": true
-  }
+    "skipLibCheck": true,
+    "paths": {
+      "@*": ["./src*"],
+      "@authentication/*": ["authentication/*"],
+      "@posts/*": ["posts/*"],
+      "@users/*": ["users/*"],
+      "@database/*": ["database/*"],
+      "@db/*": ["db/*"],
+      "@utils/*": ["utils/*"]
+    },
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": ["node_modules"]
 }

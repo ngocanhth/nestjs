@@ -1,0 +1,10 @@
+docker exec -it postgres  psql -U admin nestjs
+
+docker exec -ti 03de1d5e7a8c sh
+psql -d nestjs -U admin
+ALTER USER admin WITH ENCRYPTED PASSWORD 'admin';
+
+\q
+thoat khoi psql
+
+\l: list cac databases trong postgressql
