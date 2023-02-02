@@ -12,14 +12,17 @@
     "baseUrl": ".",
     "incremental": true,
     "skipLibCheck": true,
+    "noImplicitAny": true,
+    "preserveConstEnums": true,
+    "strictNullChecks": true,
     "paths": {
       "@*": ["./src*"],
       "@authentication/*": ["authentication/*"],
-      "@posts/*": ["posts/*"],
-      "@users/*": ["users/*"],
-      "@database/*": ["database/*"],
-      "@db/*": ["db/*"],
-      "@utils/*": ["utils/*"]
+      "@posts*": ["posts/*"],
+      "@users*": ["users/*"],
+      "@database*": ["database/*"],
+      "@db*": ["db/*"],
+      "@utils*": ["utils/*"]
     },
   },
   "include": [

@@ -53,18 +53,32 @@ export default class PostService {
   //   return newPost;
   // }
 
-  async createPost(postDto: CreatePostDto, user: User): Promise<PostEntity> {
-    const post = await this.getByTitle(postDto.title);
-    if (post) {
-      throw new HttpException('Post with this title already exist', HttpStatus.CONFLICT);
-    }
-    const newPost = await this.postRepository.create({
+  // async createPost(postDto: CreatePostDto, user: User): Promise<PostEntity> {
+   
+
+  //   const post = await this.getByTitle(postDto.title);
+    
+  //   // if (post) {
+  //   //   throw new HttpException('Post with this title already exist', HttpStatus.CONFLICT);
+  //   // }
+  //   const newPost = await this.postRepository.create({
+  //     ...post,
+  //     author: user
+  //   });
+
+  //   await this.postRepository.save(newPost);
+  //   return newPost;
+  // }
+
+  async createPost(post: CreatePostDto, user: User) {
+    const newPost: PostEntity = await this.postRepository.create({
       ...post,
       author: user
     });
     await this.postRepository.save(newPost);
     return newPost;
   }
+
 
   // public async getAllPosts() {
   //   const posts: PostEntity[] = await this.postRepository.find();

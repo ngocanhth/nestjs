@@ -27,7 +27,7 @@ export class CreatePostDto {
     content: string;
 
     @IsOptional()
-    category: string | null;
+    category: string;
   
 //    @ApiProperty({description: 'tags', required: false, type:[PostTag]})
 //    @IsOptional()
