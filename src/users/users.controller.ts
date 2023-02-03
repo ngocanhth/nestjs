@@ -20,9 +20,10 @@ export class UsersController {
     return this.usersService.addAvatar(request.user.id, file.buffer, file.originalname);
   }
 
-//   @Delete('avatar')
-//   @UseGuards(JwtAuthenticationGuard)
-//   async deleteAvatar(@Req() request: RequestWithUser) {
-//     return this.usersService.deleteAvatar(request.user.id);
-//   }
+  @Delete('avatar')
+  @UseGuards(JwtAuthenticationGuard)
+  async deleteAvatar(@Req() request: RequestWithUser) {
+    console.log('fileId:', request.user.id);
+    return this.usersService.deleteAvatar(request.user.id);
+  }
 }

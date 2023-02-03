@@ -36,6 +36,7 @@ class User {
   public posts: Post[];
 
   @JoinColumn()
+  @Expose()
   @OneToOne(
     () => PublicFile,
     {

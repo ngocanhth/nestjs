@@ -35,13 +35,42 @@ export class UsersService {
     return newUser;
   }
 
+  // async addAvatar(userId: number, imageBuffer: Buffer, filename: string) {
+  //   const avatar = await this.filesService.uploadPublicFile(imageBuffer, filename);
+  //   const user = await this.getById(userId);
+  //   await this.usersRepository.update(userId, {
+  //     ...user,
+  //     avatar
+  //   });
+  //   return avatar;
+  // }
+
   async addAvatar(userId: number, imageBuffer: Buffer, filename: string) {
-    const avatar = await this.filesService.uploadPublicFile(imageBuffer, filename);
     const user = await this.getById(userId);
+    if (user.avatar) {
+      await this.usersRepository.update(userId, {
+        ...user,
+        avatar: undefined
+      });
+      await this.filesService.deletePublicFile(user.avatar.id);
+    }
+    const avatar = await this.filesService.uploadPublicFile(imageBuffer, filename);
     await this.usersRepository.update(userId, {
       ...user,
       avatar
     });
     return avatar;
+  }
+
+  async deleteAvatar(userId: number) {
+    const user = await this.getById(userId);
+    const fileId = user.avatar?.id;
+    if (fileId) {
+      await this.usersRepository.update(userId, {
+        ...user,
+        avatar: undefined
+      });
+      await this.filesService.deletePublicFile(fileId)
+    }
   }
 }

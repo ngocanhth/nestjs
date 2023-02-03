@@ -7,9 +7,9 @@ import { LocalAuthenticationGuard } from './localAuthentication.guard';
 import JwtAuthenticationGuard from './jwt-authentication.guard';
 
 @Controller('auth')
-@SerializeOptions({
-  strategy: 'excludeAll'
-})
+// @SerializeOptions({
+//   strategy: 'excludeAll'
+// })
 export class AuthenticationController {
   constructor(
     private readonly authenticationService: AuthenticationService
