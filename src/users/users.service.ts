@@ -65,11 +65,17 @@ export class UsersService {
   async deleteAvatar(userId: number) {
     const user = await this.getById(userId);
     const fileId = user.avatar?.id;
+
+    console.log('fileId:', fileId);
+
     if (fileId) {
       await this.usersRepository.update(userId, {
         ...user,
         avatar: undefined
       });
+
+      console.log('test:');
+
       await this.filesService.deletePublicFile(fileId)
     }
   }

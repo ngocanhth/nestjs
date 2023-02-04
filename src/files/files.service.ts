@@ -32,12 +32,15 @@ export class FilesService {
   }
 
   async deletePublicFile(fileId: number) {
+    console.log('AWS_PUBLIC_BUCKET_NAME', this.configService.get('AWS_PUBLIC_BUCKET_NAME'));
+    
     const file = await this.publicFilesRepository.findOne({ where: { id: fileId } });
     const s3 = new S3();
     await s3.deleteObject({
       Bucket: this.configService.get('AWS_PUBLIC_BUCKET_NAME') || '',
       Key: file ? file.key : '',
     }).promise();
+ 
     await this.publicFilesRepository.delete(fileId);
   }
 

@@ -23,7 +23,6 @@ export class UsersController {
   @Delete('avatar')
   @UseGuards(JwtAuthenticationGuard)
   async deleteAvatar(@Req() request: RequestWithUser) {
-    console.log('fileId:', request.user.id);
     return this.usersService.deleteAvatar(request.user.id);
   }
 }
